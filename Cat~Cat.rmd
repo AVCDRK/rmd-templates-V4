@@ -6,9 +6,7 @@ output: html_document
 ---
 
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+
 
 # 2 x 2  Chisq or Fisher
 
@@ -18,37 +16,38 @@ we use the ucdavis1 dataset from the tigerstats package.
 ```{r include=FALSE}
 require(tidyverse)
 require(tigerstats)
+require(knitr)
 data(ucdavis1)
 davisdata <- na.omit(ucdavis1)
 ```
 
 
-###Plot barplots
+### Plot barplots
 
-```{r}
-barchartGC(~class + Sex,data=ucdavis1)
-barchartGC(~class + Sex,data=ucdavis1, type="percent")
 
-```
 ```{r}
 dd2 <- davisdata %>% group_by(class,Sex) %>% summarize(count=n()) %>% mutate(prcnt=count/sum(count))
 
+
+# the group_by followed by summarize(count=n())
+
 basicC <- ggplot(dd2,aes(x=class,y=count,fill=Sex))
 basicC + geom_bar(stat="identity",position="dodge")
+
 #Now for percentage plot
 
 basicCC <- ggplot(dd2,aes(x=class,y=prcnt*100,fill=Sex)) 
 basicCC + geom_bar(stat="identity", position = "dodge")
 ```
   
-###Numerical Summaries  
+### Numerical Summaries  
 
 ```{r}
 table1 <- xtabs(~class + Sex, data=davisdata)
 rowPerc(table1)
 colPerc(table1)
 ```
-##Inferential  
+## Inferential  
 
 ```{r}
 chisq.test(table1)
@@ -56,3 +55,35 @@ chisqtestGC(table1)
 fisher.test(table1)
 ```
 
+# 2 x 3 (other than 2x2 case)
+
+
+```{r}
+dd3 <- davisdata %>% group_by(Seat,Sex) %>% summarize(count=n()) %>% mutate(prcnt=count/sum(count))
+
+
+# the group_by followed by summarize(count=n())
+
+basicC <- ggplot(dd3,aes(x=Seat,y=count,fill=Sex))
+basicC + geom_bar(stat="identity",position="dodge")
+
+#Now for percentage plot
+
+basicCC <- ggplot(dd3,aes(x=Seat,y=prcnt*100,fill=Sex)) 
+basicCC + geom_bar(stat="identity", position = "dodge")
+```
+
+### Numerical Summaries  
+
+```{r}
+table2 <- xtabs(~Seat + Sex, data=davisdata)
+rowPerc(table2)
+colPerc(table2)
+```
+
+## Inferential  
+
+```{r}
+chisq.test(table2)
+chisqtestGC(table2)
+```
