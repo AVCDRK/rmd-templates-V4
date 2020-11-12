@@ -23,24 +23,24 @@ Bears<- na.omit(Bears)
 fullup <- lm(Length~ .,data=Bears)
 summary.lm(fullup)
 ```
-###Take out Head.W
+### Take out Head.W
 
 ```{r}
 MODL7 <- lm(Length~ .-Head.W,data=Bears)
 summary.lm(MODL7)
 ```
-###Now take out Weight
+### Now take out Weight
 
 ```{r}
 MODL6 <- lm(Length~ .- Head.W-Weight,data=Bears)
 summary.lm(MODL6)
 ```
-###Remove Age next
+### Remove Age next
 ```{r}
 MODL5 <- lm(Length~ .- Head.W-Weight-Age,data=Bears)
 summary.lm(MODL5)
 ```
-###Now remove Neck.G  
+### Now remove Neck.G  
 
 ```{r}
 MODL4 <- lm(Length~ .- Head.W-Weight-Age-Neck.G,data=Bears)
@@ -52,12 +52,12 @@ MODL3 <- lm(Length~ .- Head.W-Weight-Age-Neck.G-Sex,data=Bears)
 summary.lm(MODL3)
 ```
 
-###AdjR^2 Started going down from 4 to 3 - so stop at 4
+### AdjR^2 Started going down from 4 to 3 - so stop at 4
 
 
 
 
-#now automate
+# now automate
 
 
 ```{r}
@@ -76,7 +76,7 @@ library(car)
 subsets(regsubsets.out,statistic="adjr2",legend="bottomright",main="Adjusted R^2")
 ```
   
-##Which is best??  
+## Which is best??  
 
 ```{r}
 which.max(summary.out$adjr2)
