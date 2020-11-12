@@ -25,7 +25,7 @@ fisher.test(fishtab)
 plot(Age~Status,data=donner,main="survive v.s. age")
 t.test(Age~Status,data=donner)
 ```
-##Now start logistic regression model of Status explained by Age
+## Now start logistic regression model of Status explained by Age
 
 ```{r}
 ageModl <- glm(Status ~ Age, data=donner, family=binomial)
@@ -34,7 +34,7 @@ ageSexModl <- glm(Status ~ Age + Sex, data=donner, family=binomial)
 summary.glm(ageSexModl)
 ```
                    
-##Use anova with test=Chisq to compare logistic regression models
+## Use anova with test=Chisq to compare logistic regression models
 
 ```{r}
 anova(ageModl,ageSexModl,test="Chisq")
