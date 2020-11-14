@@ -2,7 +2,9 @@
 title: "Numerical~Cat template"
 author: "Dr K"
 date: "November 25, 2018"
-output: html_document
+output: 
+  html_document:
+    toc: true
 ---
 
 ```{r setup, include=FALSE}
@@ -73,12 +75,12 @@ basicCN <- ggplot(davisdata,aes(x=Seat,y=alcohol))
 basicCN + geom_boxplot()
 ```
   
-# Numerical results
+## Numerical results
 
 ```{r}
 favstats(alcohol~Seat,data=ucdavis1)
 ```
-# Inferential
+## Inferential
 
 ```{r}
 model1 <- aov(alcohol~Seat,data=davisdata)
@@ -94,7 +96,9 @@ plot(TukeyHSD(model1))
 ## Another example  
 
 ```{r}
-plot(weight~feed,data=OurData)
+basicAnova <- ggplot(OurData,aes(x=feed,y=weight))
+
+basicAnova + geom_boxplot()
 ```
   
   
@@ -129,14 +133,16 @@ plot(TukeyHSD(model1),las=2)
 require(lme4)
 require(lmerTest)
 mydata <- sleepstudy
-str(mydata)
+(str(mydata))
 ```
+  
 ## lets fit a linear model explaining Reaction as a function Days
 
 ```{r}
 basicNN <- ggplot(mydata,aes(y=Reaction,x=Days))
 ```
-##Now add in scatterplot
+  
+## Now add in scatterplot  
 
 ```{r}
 basicNN + geom_point() + geom_smooth(method="lm")
